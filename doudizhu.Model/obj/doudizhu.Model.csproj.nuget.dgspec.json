@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\GitCode\\doudizhuServer\\doudizhuServer\\doudizhuServer.csproj": {}
+    "E:\\GitCode\\doudizhuServer\\doudizhu.Model\\doudizhu.Model.csproj": {}
   },
   "projects": {
-    "E:\\GitCode\\doudizhuServer\\doudizhuServer\\doudizhuServer.csproj": {
+    "E:\\GitCode\\doudizhuServer\\doudizhu.Model\\doudizhu.Model.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\GitCode\\doudizhuServer\\doudizhuServer\\doudizhuServer.csproj",
-        "projectName": "doudizhuServer",
-        "projectPath": "E:\\GitCode\\doudizhuServer\\doudizhuServer\\doudizhuServer.csproj",
+        "projectUniqueName": "E:\\GitCode\\doudizhuServer\\doudizhu.Model\\doudizhu.Model.csproj",
+        "projectName": "doudizhu.Model",
+        "projectPath": "E:\\GitCode\\doudizhuServer\\doudizhu.Model\\doudizhu.Model.csproj",
         "packagesPath": "C:\\Users\\WUYUJUN\\.nuget\\packages\\",
-        "outputPath": "E:\\GitCode\\doudizhuServer\\doudizhuServer\\obj\\",
+        "outputPath": "E:\\GitCode\\doudizhuServer\\doudizhu.Model\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -55,10 +55,6 @@
             "Pomelo.EntityFrameworkCore.MySql.Design": {
               "target": "Package",
               "version": "[1.1.2, )"
-            },
-            "Swashbuckle.AspNetCore": {
-              "target": "Package",
-              "version": "[6.2.3, )"
             }
           },
           "imports": [
@@ -72,9 +68,6 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

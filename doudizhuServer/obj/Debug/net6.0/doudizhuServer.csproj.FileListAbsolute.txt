@@ -29,3 +29,10 @@ E:\GitCode\doudizhuServer\doudizhuServer\obj\Debug\net6.0\refint\doudizhuServer.
 E:\GitCode\doudizhuServer\doudizhuServer\obj\Debug\net6.0\doudizhuServer.pdb
 E:\GitCode\doudizhuServer\doudizhuServer\obj\Debug\net6.0\doudizhuServer.genruntimeconfig.cache
 E:\GitCode\doudizhuServer\doudizhuServer\obj\Debug\net6.0\ref\doudizhuServer.dll
+E:\GitCode\doudizhuServer\doudizhuServer\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+E:\GitCode\doudizhuServer\doudizhuServer\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+E:\GitCode\doudizhuServer\doudizhuServer\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+E:\GitCode\doudizhuServer\doudizhuServer\bin\Debug\net6.0\MySqlConnector.dll
+E:\GitCode\doudizhuServer\doudizhuServer\bin\Debug\net6.0\Pomelo.EntityFrameworkCore.MySql.dll
+E:\GitCode\doudizhuServer\doudizhuServer\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.Design.dll
+E:\GitCode\doudizhuServer\doudizhuServer\bin\Debug\net6.0\Pomelo.EntityFrameworkCore.MySql.Design.dll
