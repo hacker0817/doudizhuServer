@@ -1,17 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
 
 namespace doudizhuServer.Models
 {
-    public class UserModel
+    public partial class User
     {
-        [Key]
         public int UserId { get; set; }
-
-        [MaxLength(100)]
-        public string Username { get; set; } = null!;
-
         public string Password { get; set; } = null!;
-
         public string Email { get; set; } = null!;
+        public string Username { get; set; } = null!;
     }
 }

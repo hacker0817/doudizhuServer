@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using doudizhuServer.Models;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -9,8 +10,8 @@ namespace doudizhuServer
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly MySqlDbContext _dbContext;
-        public UserController(MySqlDbContext dbContext)
+        private readonly gameContext _dbContext;
+        public UserController(gameContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -53,9 +54,17 @@ namespace doudizhuServer
                 {
                     case "register":
                     {
-                        string email = input["email"].ToString().Trim();
+                        string name = input["name"].ToString().Trim();
                         string password = input["password"].ToString().Trim();
-                        string nickname = input["nickname"].ToString().Trim();
+                        string email = input["email"].ToString().Trim();
+
+                        _dbContext.Users.Add(new User()
+                        {
+                            Username = name,
+                            Password = password,
+                            Email = email
+                        });
+                        _dbContext.SaveChanges();
                         break;
                     }
                     case "login":
