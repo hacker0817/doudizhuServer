@@ -5,7 +5,7 @@ namespace doudizhuServer
 {
     public class MySqlDbContext : DbContext
     {
-        public DbSet<UserModel> UserDbSet { get; set; }
+        public DbSet<UserModel> Users { get; set; }
 
         public MySqlDbContext(DbContextOptions<MySqlDbContext> options) : base(options)
         {

@@ -11,25 +11,11 @@ builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Replace with your connection string.
-var connectionString = "server=localhost;user=root;password=1234;database=game";
-
-// Replace with your server version and type.
-// Use 'MariaDbServerVersion' for MariaDB.
-// Alternatively, use 'ServerVersion.AutoDetect(connectionString)'.
-// For common usages, see pull request #1233.
-//var serverVersion = new MySqlServerVersion(new Version(8, 0, 27));
-
-// Replace 'YourDbContext' with the name of your own DbContext derived class.
-builder.Services.AddDbContext<MySqlDbContext>(
-    dbContextOptions => dbContextOptions
-        .UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
-        // The following three options help with debugging, but should
-        // be changed or removed for production.
-        .LogTo(Console.WriteLine, LogLevel.Information)
-        .EnableSensitiveDataLogging()
-        .EnableDetailedErrors()
-);
+builder.Services.AddDbContext<MySqlDbContext>(options =>
+{
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+});
 
 builder.Services.AddCors(options =>
 {
