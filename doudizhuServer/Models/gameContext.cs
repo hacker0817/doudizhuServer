@@ -24,7 +24,7 @@ namespace doudizhuServer.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseMySql("server=localhost;port=3306;database=game;user=root;password=1234", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.16-mysql"));
+                optionsBuilder.UseMySql("server=localhost;port=3306;database=game;user=root;password=1234", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.29-mysql"));
             }
         }
 
@@ -41,24 +41,31 @@ namespace doudizhuServer.Models
 
                 entity.ToTable("sign");
 
-                entity.Property(e => e.SignTime).HasColumnType("datetime");
+                entity.Property(e => e.SignTime)
+                    .HasColumnType("datetime")
+                    .HasComment("签到时间");
 
-                entity.Property(e => e.UserId).HasColumnType("int(10)");
+                entity.Property(e => e.UserId).HasComment("用户ID");
             });
 
             modelBuilder.Entity<User>(entity =>
             {
                 entity.ToTable("users");
 
-                entity.Property(e => e.UserId).HasColumnType("int(10)");
+                entity.Property(e => e.UserId).HasComment("用户ID");
 
-                entity.Property(e => e.Email).HasMaxLength(255);
+                entity.Property(e => e.Email)
+                    .HasMaxLength(255)
+                    .HasComment("邮箱");
 
-                entity.Property(e => e.Password).HasMaxLength(255);
+                entity.Property(e => e.Password)
+                    .HasMaxLength(255)
+                    .HasComment("密码");
 
                 entity.Property(e => e.Username)
                     .HasMaxLength(255)
-                    .HasDefaultValueSql("''");
+                    .HasDefaultValueSql("''")
+                    .HasComment("用户名");
             });
 
             OnModelCreatingPartial(modelBuilder);
