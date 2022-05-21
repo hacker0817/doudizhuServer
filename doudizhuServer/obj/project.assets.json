@@ -407,6 +407,16 @@
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
         }
+      },
+      "codebase/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/codebase.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/codebase.dll": {}
+        }
       }
     }
   },
@@ -1139,6 +1149,11 @@
         "system.runtime.compilerservices.unsafe.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "codebase/1.0.0": {
+      "type": "project",
+      "path": "../../codebase/codebase/codebase.csproj",
+      "msbuildProject": "../../codebase/codebase/codebase.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -1146,7 +1161,8 @@
       "Microsoft.AspNetCore.Mvc.NewtonsoftJson >= 6.0.5",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.5",
       "Pomelo.EntityFrameworkCore.MySql >= 6.0.1",
-      "Swashbuckle.AspNetCore >= 6.3.1"
+      "Swashbuckle.AspNetCore >= 6.3.1",
+      "codebase >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -1175,7 +1191,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "E:\\GitCode\\codebase\\codebase\\codebase.csproj": {
+              "projectPath": "E:\\GitCode\\codebase\\codebase\\codebase.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

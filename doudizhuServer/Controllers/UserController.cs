@@ -1,4 +1,5 @@
-﻿using doudizhuServer.Models;
+﻿using codebase;
+using doudizhuServer.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 
@@ -25,13 +26,13 @@ namespace doudizhuServer
                 switch (action)
                 {
                     case "action1":
-                    {
-                        break;
-                    }
+                        {
+                            break;
+                        }
                     default:
-                    {
-                        break;
-                    }
+                        {
+                            break;
+                        }
                 }
                 result.Add("state", "0");
                 result.Add("msg", "");
@@ -50,38 +51,50 @@ namespace doudizhuServer
             JObject result = new JObject();
             try
             {
+                string msg = "";
                 switch (action)
                 {
                     case "register":
-                    {
-                        string name = input["name"].ToString().Trim();
-                        string password = input["password"].ToString().Trim();
-                        string email = input["email"].ToString().Trim();
-
-                        _dbContext.Users.Add(new User()
                         {
-                            Username = name,
-                            Password = password,
-                            Email = email
-                        });
-                        _dbContext.SaveChanges();
-                        break;
-                    }
+                            string name = input["name"].ToString().Trim();
+                            string password = input["password"].ToString().Trim();
+                            string email = input["email"].ToString().Trim();
+                            var user = _dbContext.Users
+                                .FirstOrDefault(user => user.Username == name || user.Email == email);
+                            if (user == null)
+                            {
+                                _dbContext.Users.Add(new User()
+                                {
+                                    Username = name,
+                                    Password = EncryptionMD5.EncryptStringMD5(password),
+                                    Email = email
+                                });
+                                _dbContext.SaveChanges();
+                            }
+                            else
+                                msg = "the username or email already exists";
+                            break;
+                        }
                     case "login":
-                    {
-                        break;
-                    }
-                    default:
-                    {
-                        break;
-                    }
+                        {
+                            string name = input["name"].ToString().Trim();
+                            string password = input["password"].ToString().Trim();
+                            var user = _dbContext.Users.FirstOrDefault(user => (user.Username == name || user.Email == name));
+                            if (user == null)
+                            {
+                                msg = "the username or email not exists";
+                            }
+                            else if (user.Password != EncryptionMD5.EncryptStringMD5(password))
+                            {
+                                msg = "the password is wrong";
+                            }
+                            break;
+                        }
                 }
-                result.Add("state", "0");
-                result.Add("msg", "");
+                result.Add("msg", msg);
             }
             catch (Exception ex)
             {
-                result.Add("state", "1");
                 result.Add("msg", ex.Message);
             }
             return result;

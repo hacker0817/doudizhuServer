@@ -21,7 +21,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="HelperUtility\" />
     <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\codebase\codebase\codebase.csproj" />
   </ItemGroup>
 
 </Project>

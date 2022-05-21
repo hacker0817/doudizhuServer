@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "doudizhuServer", "doudizhuS
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9E399286-184C-41A4-B11F-67E4A3882574}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "codebase", "..\..\codebase\codebase\codebase.csproj", "{217F3333-A7B3-4925-ACB2-5E0A71232E03}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +19,10 @@ Global
 		{9F0C31D9-DFD9-4945-8204-9381E04004B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F0C31D9-DFD9-4945-8204-9381E04004B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F0C31D9-DFD9-4945-8204-9381E04004B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{217F3333-A7B3-4925-ACB2-5E0A71232E03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{217F3333-A7B3-4925-ACB2-5E0A71232E03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{217F3333-A7B3-4925-ACB2-5E0A71232E03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{217F3333-A7B3-4925-ACB2-5E0A71232E03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -37,3 +37,5 @@ E:\GitCode\doudizhuServer\doudizhuServer\bin\Debug\net6.0\Microsoft.EntityFramew
 E:\GitCode\doudizhuServer\doudizhuServer\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
 E:\GitCode\doudizhuServer\doudizhuServer\bin\Debug\net6.0\MySqlConnector.dll
 E:\GitCode\doudizhuServer\doudizhuServer\bin\Debug\net6.0\Pomelo.EntityFrameworkCore.MySql.dll
+E:\GitCode\doudizhuServer\doudizhuServer\bin\Debug\net6.0\codebase.dll
+E:\GitCode\doudizhuServer\doudizhuServer\bin\Debug\net6.0\codebase.pdb

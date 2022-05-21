@@ -23,13 +23,13 @@ namespace doudizhuServer
                 switch (action)
                 {
                     case "action1":
-                    {
-                        break;
-                    }
+                        {
+                            break;
+                        }
                     default:
-                    {
-                        break;
-                    }
+                        {
+                            break;
+                        }
                 }
                 result.Add("state", "0");
                 result.Add("msg", "");
@@ -51,13 +51,13 @@ namespace doudizhuServer
                 switch (action)
                 {
                     case "action1":
-                    {
-                        break;
-                    }
+                        {
+                            break;
+                        }
                     default:
-                    {
-                        break;
-                    }
+                        {
+                            break;
+                        }
                 }
                 result.Add("state", "0");
                 result.Add("msg", "");
