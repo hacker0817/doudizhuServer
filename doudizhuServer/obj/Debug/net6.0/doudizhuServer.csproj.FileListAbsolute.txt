@@ -39,3 +39,10 @@ E:\GitCode\doudizhuServer\doudizhuServer\bin\Debug\net6.0\MySqlConnector.dll
 E:\GitCode\doudizhuServer\doudizhuServer\bin\Debug\net6.0\Pomelo.EntityFrameworkCore.MySql.dll
 E:\GitCode\doudizhuServer\doudizhuServer\bin\Debug\net6.0\codebase.dll
 E:\GitCode\doudizhuServer\doudizhuServer\bin\Debug\net6.0\codebase.pdb
+E:\GitCode\doudizhuServer\doudizhuServer\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\GitCode\doudizhuServer\doudizhuServer\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+E:\GitCode\doudizhuServer\doudizhuServer\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+E:\GitCode\doudizhuServer\doudizhuServer\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+E:\GitCode\doudizhuServer\doudizhuServer\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+E:\GitCode\doudizhuServer\doudizhuServer\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+E:\GitCode\doudizhuServer\doudizhuServer\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
