@@ -1463,8 +1463,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\WUYUJUN\\.nuget\\packages\\": {},
-    "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\AQ\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -1472,15 +1471,11 @@
       "projectUniqueName": "E:\\GitCode\\doudizhuServer\\doudizhuServer\\doudizhuServer.csproj",
       "projectName": "doudizhuServer",
       "projectPath": "E:\\GitCode\\doudizhuServer\\doudizhuServer\\doudizhuServer.csproj",
-      "packagesPath": "C:\\Users\\WUYUJUN\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\AQ\\.nuget\\packages\\",
       "outputPath": "E:\\GitCode\\doudizhuServer\\doudizhuServer\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\WUYUJUN\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\AQ\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

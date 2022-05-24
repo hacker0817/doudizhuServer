@@ -57,7 +57,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
             // If the request is for our hub...
             var path = context.HttpContext.Request.Path;
             if (!string.IsNullOrEmpty(accessToken) &&
-                (path.StartsWithSegments("/ws")))
+                (path.StartsWithSegments("/gamews")))
             {
                 // Read the token out of the query string
                 context.Token = accessToken;
@@ -80,7 +80,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("any");
 
-app.UseWebSockets();
+//app.UseWebSockets();
 
 app.UseMiddleware<WebsocketHandlerMiddleware>();
 
@@ -88,6 +88,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-app.MapHub<GameHub>("/ws");
+app.MapHub<GameHub>("/gamews");
 
 app.Run();
