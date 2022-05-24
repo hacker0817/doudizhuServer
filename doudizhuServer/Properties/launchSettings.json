@@ -1,4 +1,4 @@
-ï»¿{
+{
   "$schema": "https://json.schemastore.org/launchsettings.json",
   "iisSettings": {
     "windowsAuthentication": false,
@@ -12,10 +12,10 @@
     "doudizhuServer": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      //"launchBrowser": true,
-      //"launchUrl": "swagger",
-      "externalUrlConfiguration": true, //è§£å†³ launchSettings.json å’Œ appSettings.json ä¹‹é—´çš„å†²çª
-      //"applicationUrl": "http://localhost:5050",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "externalUrlConfiguration": true, //½â¾ö launchSettings.json ºÍ appSettings.json Ö®¼äµÄ³åÍ»
+      "applicationUrl": "http://localhost:5050",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

@@ -38,17 +38,5 @@ namespace doudizhuServer.Controllers
             }
             return result;
         }
-
-        public bool IsCanReadToken(ref string tokenStr)
-        {
-            if (string.IsNullOrWhiteSpace(tokenStr) || tokenStr.Length < 7)
-                return false;
-            if (!tokenStr.Substring(0, 6).Equals(Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme))
-                return false;
-            tokenStr = tokenStr.Substring(7);
-            bool isCan = new JwtSecurityTokenHandler().CanReadToken(tokenStr);
-
-            return isCan;
-        }
     }
 }

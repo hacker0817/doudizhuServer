@@ -32,13 +32,13 @@ namespace doudizhuServer
                 switch (action)
                 {
                     case "action1":
-                        {
-                            break;
-                        }
+                    {
+                        break;
+                    }
                     default:
-                        {
-                            break;
-                        }
+                    {
+                        break;
+                    }
                 }
                 result.Add("state", "0");
                 result.Add("msg", "");
@@ -61,43 +61,47 @@ namespace doudizhuServer
                 switch (action)
                 {
                     case "register":
+                    {
+                        string name = input["name"].ToString().Trim();
+                        string password = input["password"].ToString().Trim();
+                        string email = input["email"].ToString().Trim();
+                        var user = _dbContext.Users
+                            .FirstOrDefault(user => user.Username == name || user.Email == email);
+                        if (user == null)
                         {
-                            string name = input["name"].ToString().Trim();
-                            string password = input["password"].ToString().Trim();
-                            string email = input["email"].ToString().Trim();
-                            var user = _dbContext.Users
-                                .FirstOrDefault(user => user.Username == name || user.Email == email);
-                            if (user == null)
+                            _dbContext.Users.Add(new User()
                             {
-                                _dbContext.Users.Add(new User()
-                                {
-                                    Username = name,
-                                    Password = EncryptionMD5.EncryptStringMD5(password),
-                                    Email = email
-                                });
-                                _dbContext.SaveChanges();
-                            }
-                            else
-                                msg = "the username or email already exists";
-                            break;
+                                Username = name,
+                                Password = EncryptionMD5.EncryptStringMD5(password),
+                                Email = email
+                            });
+                            _dbContext.SaveChanges();
                         }
+                        else
+                            msg = "the username or email already exists";
+                        break;
+                    }
                     case "login":
+                    {
+                        string name = input["name"].ToString().Trim();
+                        string password = input["password"].ToString().Trim();
+                        var user = _dbContext.Users.FirstOrDefault(user => (user.Username == name || user.Email == name));
+                        if (user == null)
                         {
-                            string name = input["name"].ToString().Trim();
-                            string password = input["password"].ToString().Trim();
-                            var user = _dbContext.Users.FirstOrDefault(user => (user.Username == name || user.Email == name));
-                            if (user == null)
-                            {
-                                msg = "the username or email not exists";
-                            }
-                            else if (user.Password != EncryptionMD5.EncryptStringMD5(password))
-                            {
-                                msg = "the password is wrong";
-                            }
-                            else
-                                result.Add("token", CreateToken(user));
-                            break;
+                            msg = "the username or email not exists";
                         }
+                        else if (user.Password != EncryptionMD5.EncryptStringMD5(password))
+                        {
+                            msg = "the password is wrong";
+                        }
+                        else
+                        {
+                            Helper h = new Helper(_configuration);
+                            result.Add("token", h.CreateToken(user));
+                        }
+
+                        break;
+                    }
                 }
                 result.Add("msg", msg);
             }
@@ -108,42 +112,6 @@ namespace doudizhuServer
             return result;
         }
 
-        public string CreateToken(User user)
-        {
-            // 1. 定义需要使用到的Claims
-            var claims = new[]
-            {
-                new Claim("UserId", user.UserId.ToString()),
-                new Claim("Username", user.Username),
-                new Claim("Email", user.Email)
-            };
 
-            // 2. 从 appsettings.json 中读取SecretKey
-            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:SecretKey"]));
-
-            // 3. 选择加密算法
-            var algorithm = SecurityAlgorithms.HmacSha256;
-
-            // 4. 生成Credentials
-            var signingCredentials = new SigningCredentials(secretKey, algorithm);
-
-            // 5. 从 appsettings.json 中读取Expires
-            var expires = Convert.ToDouble(_configuration["JWT:Expires"]);
-
-            // 6. 根据以上，生成token
-            var token = new JwtSecurityToken(
-                _configuration["JWT:Issuer"],     //Issuer
-                _configuration["JWT:Audience"],   //Audience
-                claims,                          //Claims,
-                DateTime.Now,                    //notBefore
-                DateTime.Now.AddDays(expires),   //expires
-                signingCredentials               //Credentials
-            );
-
-            // 7. 将token变为string
-            var jwtToken = new JwtSecurityTokenHandler().WriteToken(token);
-
-            return jwtToken;
-        }
     }
 }
