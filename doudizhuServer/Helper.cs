@@ -20,6 +20,8 @@ namespace doudizhuServer
             // 1. 定义需要使用到的Claims
             var claims = new[]
             {
+                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+                new Claim(ClaimTypes.Name, user.UserId.ToString()),                
                 new Claim("UserId", user.UserId.ToString()),
                 new Claim("Username", user.Username),
                 new Claim("Email", user.Email)

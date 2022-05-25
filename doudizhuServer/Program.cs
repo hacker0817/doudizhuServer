@@ -82,8 +82,6 @@ app.UseCors("any");
 
 //app.UseWebSockets();
 
-app.UseMiddleware<WebsocketHandlerMiddleware>();
-
 app.UseAuthentication();
 app.UseAuthorization();
 

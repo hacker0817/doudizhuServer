@@ -1,34 +1,46 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
+using System.Collections.Generic;
 
 namespace doudizhuServer
 {
+    [Authorize]
     public class GameHub : Hub
     {
-        public async Task SendMessage(string user, string message)
+        private readonly ILogger _logger;
+        private readonly static ConnectionMapping<string> _connections = new ConnectionMapping<string>();
+
+        public GameHub(ILogger<GameHub> logger)
         {
-            await Clients.All.SendAsync("ReceiveMessage", user, message);
+            _logger = logger;
         }
 
-        public async Task SendMessageToGroup(string user, string message)
+        public void SendMessageToServer(string message)
         {
-            await Clients.Group("SignalR Users").SendAsync("ReceiveMessage", user, message);
+            _logger.LogInformation(message);
         }
 
-        public async Task SendMessageToCaller(string user, string message)
+        public async Task SendMessageToUser(string user, string message)
         {
-            await Clients.Caller.SendAsync("ReceiveMessage", user, message);
+            await Clients.User(user).SendAsync("ReceiveMessage", user, message);
         }
 
         public override async Task OnConnectedAsync()
         {
-            await Groups.AddToGroupAsync(Context.ConnectionId, "Waiting Users");
+            //var UserId = Context.User.Claims.Where(c => c.Type == "UserId").FirstOrDefault().Value;
+            _logger.LogInformation(Context.UserIdentifier);
+            _connections.Add(Context.UserIdentifier, Context.ConnectionId);
+            //await Groups.AddToGroupAsync(Context.ConnectionId, "Waiting Users");
+
+            if (_connections.Count >= 2)
+                _logger.LogInformation("游戏开始");
+            
             await base.OnConnectedAsync();
         }
 
         public override async Task OnDisconnectedAsync(Exception? exception)
         {
-            await Groups.RemoveFromGroupAsync(Context.ConnectionId, "Waiting Users");
+            _connections.Remove(Context.UserIdentifier, Context.ConnectionId);
             await base.OnDisconnectedAsync(exception);
         }
     }
