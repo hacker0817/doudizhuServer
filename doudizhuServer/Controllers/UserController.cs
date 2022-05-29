@@ -32,13 +32,13 @@ namespace doudizhuServer
                 switch (action)
                 {
                     case "action1":
-                    {
-                        break;
-                    }
+                        {
+                            break;
+                        }
                     default:
-                    {
-                        break;
-                    }
+                        {
+                            break;
+                        }
                 }
                 result.Add("state", "0");
                 result.Add("msg", "");
@@ -61,47 +61,48 @@ namespace doudizhuServer
                 switch (action)
                 {
                     case "register":
-                    {
-                        string name = input["name"].ToString().Trim();
-                        string password = input["password"].ToString().Trim();
-                        string email = input["email"].ToString().Trim();
-                        var user = _dbContext.Users
-                            .FirstOrDefault(user => user.Username == name || user.Email == email);
-                        if (user == null)
                         {
-                            _dbContext.Users.Add(new User()
+                            string name = input["name"].ToString().Trim();
+                            string password = input["password"].ToString().Trim();
+                            string email = input["email"].ToString().Trim();
+                            var user = _dbContext.Users
+                                .FirstOrDefault(user => user.Username == name || user.Email == email);
+                            if (user == null)
                             {
-                                Username = name,
-                                Password = EncryptionMD5.EncryptStringMD5(password),
-                                Email = email
-                            });
-                            _dbContext.SaveChanges();
+                                _dbContext.Users.Add(new User()
+                                {
+                                    Username = name,
+                                    Password = EncryptionMD5.EncryptStringMD5(password),
+                                    Email = email
+                                });
+                                _dbContext.SaveChanges();
+                            }
+                            else
+                                msg = "the username or email already exists";
+                            break;
                         }
-                        else
-                            msg = "the username or email already exists";
-                        break;
-                    }
                     case "login":
-                    {
-                        string name = input["name"].ToString().Trim();
-                        string password = input["password"].ToString().Trim();
-                        var user = _dbContext.Users.FirstOrDefault(user => (user.Username == name || user.Email == name));
-                        if (user == null)
                         {
-                            msg = "the username or email not exists";
-                        }
-                        else if (user.Password != EncryptionMD5.EncryptStringMD5(password))
-                        {
-                            msg = "the password is wrong";
-                        }
-                        else
-                        {
-                            Helper h = new Helper(_configuration);
-                            result.Add("token", h.CreateToken(user));
-                        }
+                            string name = input["name"].ToString().Trim();
+                            string password = input["password"].ToString().Trim();
+                            var user = _dbContext.Users.FirstOrDefault(user => (user.Username == name || user.Email == name));
+                            if (user == null)
+                            {
+                                msg = "the username or email not exists";
+                            }
+                            else if (user.Password != EncryptionMD5.EncryptStringMD5(password))
+                            {
+                                msg = "the password is wrong";
+                            }
+                            else
+                            {
+                                Helper h = new Helper(_configuration);
+                                result.Add("token", h.CreateToken(user));
+                                result.Add("userid", user.UserId);
+                            }
 
-                        break;
-                    }
+                            break;
+                        }
                 }
                 result.Add("msg", msg);
             }
