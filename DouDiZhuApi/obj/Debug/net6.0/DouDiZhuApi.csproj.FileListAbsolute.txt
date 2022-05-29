@@ -1,0 +1,12 @@
+E:\GitCode\doudizhuServer\DouDiZhuApi\bin\Debug\net6.0\DouDiZhuApi.deps.json
+E:\GitCode\doudizhuServer\DouDiZhuApi\bin\Debug\net6.0\DouDiZhuApi.dll
+E:\GitCode\doudizhuServer\DouDiZhuApi\bin\Debug\net6.0\DouDiZhuApi.pdb
+E:\GitCode\doudizhuServer\DouDiZhuApi\obj\Debug\net6.0\DouDiZhuApi.csproj.AssemblyReference.cache
+E:\GitCode\doudizhuServer\DouDiZhuApi\obj\Debug\net6.0\DouDiZhuApi.GeneratedMSBuildEditorConfig.editorconfig
+E:\GitCode\doudizhuServer\DouDiZhuApi\obj\Debug\net6.0\DouDiZhuApi.AssemblyInfoInputs.cache
+E:\GitCode\doudizhuServer\DouDiZhuApi\obj\Debug\net6.0\DouDiZhuApi.AssemblyInfo.cs
+E:\GitCode\doudizhuServer\DouDiZhuApi\obj\Debug\net6.0\DouDiZhuApi.csproj.CoreCompileInputs.cache
+E:\GitCode\doudizhuServer\DouDiZhuApi\obj\Debug\net6.0\DouDiZhuApi.dll
+E:\GitCode\doudizhuServer\DouDiZhuApi\obj\Debug\net6.0\refint\DouDiZhuApi.dll
+E:\GitCode\doudizhuServer\DouDiZhuApi\obj\Debug\net6.0\DouDiZhuApi.pdb
+E:\GitCode\doudizhuServer\DouDiZhuApi\obj\Debug\net6.0\ref\DouDiZhuApi.dll

@@ -46,3 +46,4 @@ E:\GitCode\doudizhuServer\doudizhuServer\bin\Debug\net6.0\Microsoft.IdentityMode
 E:\GitCode\doudizhuServer\doudizhuServer\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 E:\GitCode\doudizhuServer\doudizhuServer\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
 E:\GitCode\doudizhuServer\doudizhuServer\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+E:\GitCode\doudizhuServer\doudizhuServer\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll

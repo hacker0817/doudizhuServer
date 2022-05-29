@@ -8,7 +8,6 @@ namespace doudizhuServer
     public class GameHub : Hub
     {
         private readonly ILogger _logger;
-        private readonly static ConnectionMapping<string> _connections = new ConnectionMapping<string>();
 
         public static object userLock = new object();
 
