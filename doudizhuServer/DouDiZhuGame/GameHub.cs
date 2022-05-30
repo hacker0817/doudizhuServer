@@ -23,6 +23,8 @@ namespace doudizhuServer
                 var UserId = Context.UserIdentifier;
                 lock (userLock)
                 {
+                    if (!GameCenter.userList.Contains(UserId))
+                        GameCenter.userList.Add(UserId);
                     if (GameCenter.userList.Count >= 2)
                     {
                         GameRoom room = new GameRoom();
@@ -56,8 +58,8 @@ namespace doudizhuServer
             _logger.LogInformation(UserId + " Connected");
             lock (userLock)
             {
-                if (!GameCenter.userList.Contains(UserId))
-                    GameCenter.userList.Add(UserId);
+                //if (!GameCenter.userList.Contains(UserId))
+                //    GameCenter.userList.Add(UserId);
             }
 
             await base.OnConnectedAsync();
