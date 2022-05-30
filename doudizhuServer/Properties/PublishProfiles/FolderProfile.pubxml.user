@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>E:\GitCode\doudizhuServer\doudizhuServer\bin\Release\net6.0\publish\</_PublishTargetUrl>
+    <History>True|2022-05-29T14:28:37.2518373Z;True|2022-05-29T22:28:08.0489137+08:00;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>server=localhost%3b port=3306%3b database=game%3b user=root%3b password=1234%3b</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="doudizhuServer.Models.gameContext">
+      <Value>server=localhost%3b port=3306%3b database=game%3b user=root%3b password=1234%3b</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

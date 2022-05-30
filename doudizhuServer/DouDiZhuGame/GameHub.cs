@@ -23,22 +23,22 @@ namespace doudizhuServer
                 var UserId = Context.UserIdentifier;
                 lock (userLock)
                 {
-                    if (GameCenter.userList.Count >= 3)
+                    if (GameCenter.userList.Count >= 2)
                     {
                         GameRoom room = new GameRoom();
                         room.RoomId = Guid.NewGuid().ToString();
                         room.RoomType = "DouDiZhu";
 
-                        for (int i = 0; i < 3; i++)
+                        for (int i = 0; i < 2; i++)
                         {
                             string userid = GameCenter.userList[i];
                             Player player = new Player(userid);
                             room.players.Add(player);
                         }
-                        Clients.Users(room.players.Select(p => p.UserId).ToList()).SendAsync("ReceiveMessage", "", "GameStart!");
+                        Clients.Users(room.players.Select(p => p.UserId).ToList()).SendAsync("GameStart");
                     }
                     else
-                        Clients.User(Context.UserIdentifier).SendAsync("ReceiveMessage", "", $"Now User Count {GameCenter.userList.Count} ,Please wait...");
+                        Clients.User(Context.UserIdentifier).SendAsync("UserCount", GameCenter.userList.Count.ToString());
                 }
             }
             _logger.LogInformation(message);
