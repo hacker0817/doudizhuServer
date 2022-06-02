@@ -8,5 +8,7 @@
         }
 
         public string UserId { get; set; }
+
+        public bool online = false;
     }
 }

@@ -16,39 +16,60 @@ namespace doudizhuServer
             _logger = logger;
         }
 
-        public void SendMessageToServer(string message)
+        public void ReadyGame(string message)
         {
+            _logger.LogInformation(message);
             if (message.Equals("ready"))
             {
                 var UserId = Context.UserIdentifier;
                 lock (userLock)
                 {
-                    if (!GameCenter.userList.Contains(UserId))
-                        GameCenter.userList.Add(UserId);
-                    if (GameCenter.userList.Count >= 2)
+                    if (!GameCenter.waitingUsers.Contains(UserId))
+                        GameCenter.waitingUsers.Add(UserId);
+                    if (GameCenter.waitingUsers.Count >= 3)
                     {
                         GameRoom room = new GameRoom();
-                        room.RoomId = Guid.NewGuid().ToString();
+                        string roomId = Guid.NewGuid().ToString();
+                        room.RoomId = roomId;
                         room.RoomType = "DouDiZhu";
 
-                        for (int i = 0; i < 2; i++)
+                        for (int i = 0; i < 3; i++)
                         {
-                            string userid = GameCenter.userList[i];
+                            string userid = GameCenter.waitingUsers[i];
                             Player player = new Player(userid);
                             room.players.Add(player);
                         }
-                        Clients.Users(room.players.Select(p => p.UserId).ToList()).SendAsync("GameStart");
+                        GameCenter.dicGameRoom.Add(roomId, room);
+                        Clients.Users(room.players.Select(p => p.UserId).ToList()).SendAsync("GameStart",roomId);
+                        GameCenter.waitingUsers.Remove(UserId);
                     }
                     else
-                        Clients.User(Context.UserIdentifier).SendAsync("UserCount", GameCenter.userList.Count.ToString());
+                        Clients.User(UserId).SendAsync("UserCount", GameCenter.waitingUsers.Count.ToString());
                 }
             }
-            _logger.LogInformation(message);
         }
 
-        public async Task SendMessageToUser(string user, string message)
+        public void JoinGame(string roomId)
         {
-            await Clients.User(user).SendAsync("ReceiveMessage", user, message);
+            _logger.LogInformation("roomId:" + roomId);
+
+            if(GameCenter.dicGameRoom.ContainsKey(roomId))
+            {
+                GameRoom room = GameCenter.dicGameRoom[roomId];
+                var UserId = Context.UserIdentifier;
+                room.players.Find(p => p.UserId == UserId).online = true;
+                int onlineUserCount = 0;
+                foreach (Player player in room.players)
+                {
+                    if (player.online)
+                        onlineUserCount++;
+                }
+                if (onlineUserCount == 3)
+                {
+                    string gameInfo = room.InitGame();
+                    Clients.Users(room.players.Select(p => p.UserId).ToList()).SendAsync("GameStart", roomId);
+                }
+            }
         }
 
         public override async Task OnConnectedAsync()
@@ -56,11 +77,6 @@ namespace doudizhuServer
             //var UserId = Context.User.Claims.Where(c => c.Type == "UserId").FirstOrDefault().Value;
             var UserId = Context.UserIdentifier;
             _logger.LogInformation(UserId + " Connected");
-            lock (userLock)
-            {
-                //if (!GameCenter.userList.Contains(UserId))
-                //    GameCenter.userList.Add(UserId);
-            }
 
             await base.OnConnectedAsync();
         }
@@ -70,9 +86,8 @@ namespace doudizhuServer
             var UserId = Context.UserIdentifier;
             _logger.LogInformation(UserId + " DisConnected");
             lock (userLock)
-            {
-                GameCenter.userList.Remove(UserId);
-            }
+                GameCenter.waitingUsers.Remove(UserId);
+
             await base.OnDisconnectedAsync(exception);
         }
     }

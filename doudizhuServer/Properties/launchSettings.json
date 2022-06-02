@@ -12,7 +12,7 @@
     "doudizhuServer": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": true,
+      "launchBrowser": false,
       "launchUrl": "swagger",
       "externalUrlConfiguration": true, //解决 launchSettings.json 和 appSettings.json 之间的冲突
       "applicationUrl": "http://localhost:5050",
