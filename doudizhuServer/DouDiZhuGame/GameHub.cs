@@ -37,10 +37,11 @@ namespace doudizhuServer
                         {
                             string userid = GameCenter.waitingUsers[i];
                             Player player = new Player(userid);
+                            player.Num = (i + 1);
                             room.players.Add(player);
                         }
                         GameCenter.dicGameRoom.Add(roomId, room);
-                        Clients.Users(room.players.Select(p => p.UserId).ToList()).SendAsync("GameStart",roomId);
+                        Clients.Users(room.players.Select(p => p.UserId).ToList()).SendAsync("GameStart", roomId);
                         GameCenter.waitingUsers.Remove(UserId);
                     }
                     else
@@ -53,11 +54,12 @@ namespace doudizhuServer
         {
             _logger.LogInformation("roomId:" + roomId);
 
-            if(GameCenter.dicGameRoom.ContainsKey(roomId))
+            if (GameCenter.dicGameRoom.ContainsKey(roomId))
             {
                 GameRoom room = GameCenter.dicGameRoom[roomId];
                 var UserId = Context.UserIdentifier;
-                room.players.Find(p => p.UserId == UserId).online = true;
+                Player gamePlayer = room.players.FirstOrDefault(p => p.UserId == UserId);
+                gamePlayer.online = true;
                 int onlineUserCount = 0;
                 foreach (Player player in room.players)
                 {
@@ -67,7 +69,11 @@ namespace doudizhuServer
                 if (onlineUserCount == 3)
                 {
                     string gameInfo = room.InitGame();
-                    Clients.Users(room.players.Select(p => p.UserId).ToList()).SendAsync("GameStart", roomId);
+                    Clients.Users(room.players.Select(p => p.UserId).ToList()).SendAsync("Dealing", gameInfo);
+                }
+                else
+                {
+                    Clients.Users(UserId).SendAsync("UserNum", gamePlayer.Num);
                 }
             }
         }

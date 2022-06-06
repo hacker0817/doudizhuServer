@@ -9,6 +9,8 @@
 
         public string UserId { get; set; }
 
+        public int Num = 0;
+
         public bool online = false;
     }
 }
