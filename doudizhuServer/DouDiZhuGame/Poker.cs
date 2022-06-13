@@ -4,11 +4,13 @@
     {
         public int seNumber;
         public int pokerNumber;
+        public int index;
 
-        public Poker(int seNumber, int pokerNumber)
+        public Poker(int seNumber, int pokerNumber, int index)
         {
             this.seNumber = seNumber;
             this.pokerNumber = pokerNumber;
+            this.index = index;
         }
     }
 }
