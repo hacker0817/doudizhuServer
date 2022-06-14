@@ -16,64 +16,55 @@ namespace doudizhuServer
             _logger = logger;
         }
 
-        public void ReadyGame(string message)
+        public void ReadyGame()
         {
-            _logger.LogInformation(message);
-            if (message.Equals("ready"))
+            var UserId = Context.UserIdentifier;
+            lock (userLock)
             {
-                var UserId = Context.UserIdentifier;
-                lock (userLock)
-                {
-                    if (!GameCenter.waitingUsers.Contains(UserId))
-                        GameCenter.waitingUsers.Add(UserId);
-                    if (GameCenter.waitingUsers.Count >= 3)
-                    {
-                        GameRoom room = new GameRoom();
-                        string roomId = Guid.NewGuid().ToString();
-                        room.RoomId = roomId;
-                        room.RoomType = "DouDiZhu";
+                if (!GameCenter.waitingUsers.Contains(UserId))
+                    GameCenter.waitingUsers.Add(UserId);
 
-                        for (int i = 0; i < 3; i++)
-                        {
-                            string userid = GameCenter.waitingUsers[i];
-                            Player player = new Player(userid);
-                            player.Num = (i + 1);
-                            room.players.Add(player);
-                        }
-                        GameCenter.dicGameRoom.Add(roomId, room);
-                        Clients.Users(room.players.Select(p => p.UserId).ToList()).SendAsync("GameStart", roomId);
-                        GameCenter.waitingUsers.Remove(UserId);
+                if (GameCenter.waitingUsers.Count >= 3)
+                {
+                    GameRoom room = new GameRoom();
+                    string roomId = Guid.NewGuid().ToString();
+                    room.RoomId = roomId;
+                    room.RoomType = "DouDiZhu";
+
+                    for (int i = 0; i < 3; i++)
+                    {
+                        string userid = GameCenter.waitingUsers[i];
+                        Player player = new Player(userid);
+                        player.Num = i + 1;
+                        room.players.Add(player);
+                        Clients.User(userid).SendAsync("UserNum", player.Num);
                     }
-                    else
-                        Clients.User(UserId).SendAsync("UserCount", GameCenter.waitingUsers.Count.ToString());
+
+                    room.InitGame();
+                    GameCenter.dicGameRoom.Add(roomId, room);
+                    Clients.Users(room.players.Select(p => p.UserId).ToList()).SendAsync("GameStart", roomId);
+                    GameCenter.waitingUsers.Remove(UserId);
                 }
+                else
+                    Clients.User(UserId).SendAsync("UserCount", GameCenter.waitingUsers.Count.ToString());
             }
         }
 
-        public void JoinGame(string roomId)
+        public void DealPoker(string roomId, string userNum)
         {
-            _logger.LogInformation("roomId:" + roomId);
-
+            var UserId = Context.UserIdentifier;
+            _logger.LogInformation("roomId:" + roomId + ",UserId:" + UserId + ",UserNum:" + userNum);
             if (GameCenter.dicGameRoom.ContainsKey(roomId))
             {
-                GameRoom room = GameCenter.dicGameRoom[roomId];
-                var UserId = Context.UserIdentifier;
-                Player gamePlayer = room.players.FirstOrDefault(p => p.UserId == UserId);
-                gamePlayer.online = true;
-                int onlineUserCount = 0;
-                foreach (Player player in room.players)
+                var room = GameCenter.dicGameRoom[roomId];
+                if (Convert.ToInt32(userNum) == room.DealerNum)
                 {
-                    if (player.online)
-                        onlineUserCount++;
-                }
-                if (onlineUserCount == 3)
-                {
-                    string gameInfo = room.InitGame();
-                    Clients.Users(room.players.Select(p => p.UserId).ToList()).SendAsync("Dealing", gameInfo);
-                }
-                else
-                {
-                    Clients.Users(UserId).SendAsync("UserNum", gamePlayer.Num);
+                    while (room.DealingCount < 51)
+                    {
+                        int dealerNum = room.DealerNum;
+                        int r = room.DealPoker();
+                        Clients.User(room.GetPlayerByNum(dealerNum).UserId).SendAsync("deal", r);
+                    }
                 }
             }
         }

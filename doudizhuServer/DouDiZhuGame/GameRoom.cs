@@ -37,54 +37,99 @@ namespace doudizhuServer
 
         public int DealerNum = 1;
 
-        public string GetPlayerByNum(int num)
+        public int DealingCount = 0;
+
+        public List<Poker> poker0 = new List<Poker>();//底牌
+        public List<Poker> poker1 = new List<Poker>();//1号玩家手牌
+        public List<Poker> poker2 = new List<Poker>();//2号玩家手牌
+        public List<Poker> poker3 = new List<Poker>();//3号玩家手牌
+        public List<Poker> poker4 = new List<Poker>();//最后一手牌
+
+        public bool dealPokerIsOver = false;
+        public bool landlordIsSelect = false;
+        public bool gameIsOver = false;
+
+        public Player GetPlayerById(string id)
+        {
+            foreach (Player p in players)
+            {
+                if (p.UserId == id)
+                    return p;
+            }
+            return null;
+        }
+
+        public Player GetPlayerByNum(int num)
         {
             foreach (Player p in players)
             {
                 if (p.Num == num)
-                    return p.UserId;
+                    return p;
             }
-            return "";
+            return null;
         }
 
-        public string InitGame()
+        public void InitGame()
         {
             string guid = Guid.NewGuid().ToString();
             Random random = new Random(guid.GetHashCode());
             DealerNum = random.Next(1, 4);
+            poker0 = basePoker;
 
-            #region 发牌
-            List<Poker>[] pokers = new List<Poker>[5]
-            {
-                new List<Poker>(),
-                new List<Poker>(),
-                new List<Poker>(),
-                new List<Poker>(),
-                new List<Poker>()
-            };
-            pokers[0] = basePoker;
+            //#region 发牌
+            //List<Poker>[] pokers = new List<Poker>[5]
+            //{
+            //    new List<Poker>(),
+            //    new List<Poker>(),
+            //    new List<Poker>(),
+            //    new List<Poker>(),
+            //    new List<Poker>()
+            //};
+            //pokers[0] = basePoker;
 
-            for (int i = 0; i < 51; i++)
+            //for (int i = 0; i < 51; i++)
+            //{
+            //    DealerNum++;
+
+            //    if (DealerNum > 3)
+            //        DealerNum = 1;
+
+            //    int r = random.Next(basePoker.Count);
+            //    Poker p = pokers[0][r];
+            //    pokers[DealerNum].Add(p);
+            //    pokers[0].Remove(p);
+            //}
+            //#endregion
+
+            //JObject result = new JObject();
+            //result.Add("poker0", JArray.FromObject(pokers[0]));
+            //result.Add("poker1", JArray.FromObject(pokers[1]));
+            //result.Add("poker2", JArray.FromObject(pokers[2]));
+            //result.Add("poker3", JArray.FromObject(pokers[3]));
+            //result.Add("DealerNum", DealerNum);
+            //return JsonConvert.SerializeObject(result);
+        }
+
+        public int DealPoker()
+        {
+            if (poker0.Count > 3)
             {
+                string guid = Guid.NewGuid().ToString();
+                Random random = new Random(guid.GetHashCode());
+                int r = random.Next(poker0.Count);
+                Poker p = poker0[r];
+                poker0.Remove(p);
+
                 DealerNum++;
-                
                 if (DealerNum > 3)
                     DealerNum = 1;
 
-                int r = random.Next(basePoker.Count);
-                Poker p = pokers[0][r];
-                pokers[DealerNum].Add(p);
-                pokers[0].Remove(p);
-            }
-            #endregion
+                DealingCount++;
 
-            JObject result = new JObject();
-            result.Add("poker0", JArray.FromObject(pokers[0]));
-            result.Add("poker1", JArray.FromObject(pokers[1]));
-            result.Add("poker2", JArray.FromObject(pokers[2]));
-            result.Add("poker3", JArray.FromObject(pokers[3]));
-            result.Add("DealerNum", DealerNum);
-            return JsonConvert.SerializeObject(result);
+                return r;
+            }
+            else
+                return 0;
         }
     }
 }

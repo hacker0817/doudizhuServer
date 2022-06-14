@@ -9,7 +9,7 @@
 
         public string UserId { get; set; }
 
-        public int Num = 0;
+        public int Num { get; set; }
 
         public bool online = false;
     }
